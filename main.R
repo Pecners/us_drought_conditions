@@ -69,7 +69,7 @@ font_add_google("K2D", "fo")
 showtext_auto()
 
 long %>%
-  #filter(good_date < ymd("1900-01-01")) %>%
+  #filter(good_date < ymd("2000-01-01")) %>%
   mutate(value = ifelse(str_detect(cat, "^w"), value * -1, value)) %>%
   ggplot(aes(good_date, value, fill = cat)) +
   geom_area(position = "identity") +
@@ -79,10 +79,11 @@ long %>%
   scale_fill_manual(values = c_neg,
                     labels = c(rep("", 4), "Driest",
                                rep("", 4), "Wettest")) +
-  #coord_polar(clip = "off") +
+  coord_polar(clip = "off") +
   facet_wrap(~ state, ncol = 8) +
   theme_void() +
   theme(text = element_text(family = "fo"),
+        strip.text = element_blank(),
         legend.position = "none") 
 
 ggsave(filename = "plots/full.png", bg = "black", w = 11, h = 9)
